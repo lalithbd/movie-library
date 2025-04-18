@@ -30,6 +30,7 @@ dependencies {
 	runtimeOnly 'io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE'
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0'
+	implementation 'org.springframework.kafka:spring-kafka'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
