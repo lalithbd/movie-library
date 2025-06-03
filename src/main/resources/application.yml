@@ -16,13 +16,12 @@ spring:
     store-type: jdbc
   data:
     elasticsearch:
-      client:
-        reactive:
-          endpoints: localhost:9200
+      rest:
+        uris: localhost:9200
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: my-group
+      group-id: elastic-search-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -32,13 +31,15 @@ spring:
 server:
   port: 8081
 logging.level:
+  io.r2dbc.postgresql.QUERY: DEBUG
+  io.r2dbc.spi.ConnectionFactory: DEBUG
   org:
     springframework:
       web: DEBUG
       security: DEBUG
       security.oauth2: DEBUG
-
     hibernate: INFO
+    springframework.r2dbc.core: DEBUG
   com.mcueen.movie.library: DEBUG
 springdoc:
   swagger-ui.path: /swagger-ui.html

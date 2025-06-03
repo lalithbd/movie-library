@@ -11,7 +11,7 @@ public class KafkaService {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    @KafkaListener(topics = "my-topic", groupId = "my-group")
+    @KafkaListener(topics = "add-item", groupId = "elastic-search-group")
     public void listen(String message) {
         System.out.println("Received message: " + message);
     }
