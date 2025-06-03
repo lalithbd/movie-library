@@ -1,22 +1,34 @@
 package com.mcueen.movie.library.config;
 
 import io.r2dbc.spi.ConnectionFactory;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.r2dbc.connection.R2dbcTransactionManager;
 import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
+import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.reactive.TransactionalOperator;
 
 @Configuration
 @EnableTransactionManagement
+@EnableR2dbcRepositories
 public class BeanConfiguration {
 
     @Bean
-    TransactionManager transactionManager(ConnectionFactory connectionFactory) {
+    public ReactiveTransactionManager reactiveTransactionManager(ConnectionFactory connectionFactory) {
         return new R2dbcTransactionManager(connectionFactory);
+    }
+
+    @Bean
+    public TransactionalOperator transactionalOperator(ReactiveTransactionManager reactiveTransactionManager) {
+        return TransactionalOperator.create(reactiveTransactionManager);
     }
 
     @Bean
@@ -26,5 +38,10 @@ public class BeanConfiguration {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator(new ClassPathResource("schema.sql"));
         initializer.setDatabasePopulator(databasePopulator);
         return initializer;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }
