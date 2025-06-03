@@ -1,6 +1,5 @@
-package com.mcueen.movie.library.model;
+package com.mcueen.movie.library.model.r2dbc;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
@@ -10,21 +9,18 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("genre")
-public class Item {
+@Table("url_reference")
+public class UrlReference {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String description;
+    private String url;
 
-    @ElementCollection(targetClass = String.class)
-    private List<String> tags;
+    private Long itemId;
+
 }
