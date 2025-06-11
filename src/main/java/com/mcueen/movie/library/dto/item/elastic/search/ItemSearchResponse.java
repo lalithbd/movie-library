@@ -1,6 +1,6 @@
 package com.mcueen.movie.library.dto.item.elastic.search;
 
-import com.mcueen.movie.library.model.elasticsearch.ItemSearch;
+import com.mcueen.movie.library.model.elasticsearch.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,13 +19,13 @@ public class ItemSearchResponse {
     private String description;
     private List<String> tags;
 
-    public static List<ItemSearchResponse> toItemSearchResponses(List<ItemSearch> itemSearches) {
-        return itemSearches.stream().map(itemSearch ->
+    public static List<ItemSearchResponse> toItemSearchResponses(List<Item> items) {
+        return items.stream().map(item ->
                 ItemSearchResponse.builder()
-                        .description(itemSearch.getDescription())
-                        .name(itemSearch.getName())
-                        .id(itemSearch.getId())
-                        .tags(itemSearch.getTags())
+                        .description(item.getDescription())
+                        .name(item.getName())
+                        .id(item.getId())
+                        .tags(item.getTags())
                         .build()
         ).toList();
     }

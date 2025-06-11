@@ -46,7 +46,20 @@ public class GenreServiceImpl implements GenreService {
     @Override
     @Transactional
     public Mono<Void> create(GenreRequest genreRequest) {
+        if(isExistsByName(genreRequest.getName())) {
+            log.error("Genre already exists with the name: {}", genreRequest.getName());
+            return Mono.error(new IllegalArgumentException("Genre name already exists"));
+        }
         validateGenreIds(genreRequest.getGenreId() != null ? List.of(genreRequest.getGenreId()) : null);
         return genreRepository.save(genreRequest.toGenre()).then();
+    }
+
+    private boolean isExistsByName(String name) {
+        return genreRepository.existsByName(name);
+    }
+
+    @Override
+    public Flux<Genre> searchGenres(String name) {
+        return genreRepository.findByNameStart(name);
     }
 }

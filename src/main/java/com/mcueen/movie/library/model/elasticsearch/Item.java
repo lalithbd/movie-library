@@ -1,5 +1,6 @@
 package com.mcueen.movie.library.model.elasticsearch;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "item-index")
-public class ItemSearch {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

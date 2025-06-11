@@ -1,11 +1,11 @@
 package com.mcueen.movie.library.repository.elasticsearch;
 
-import com.mcueen.movie.library.model.elasticsearch.ItemSearch;
+import com.mcueen.movie.library.model.elasticsearch.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-import java.util.List;
+public interface ItemRepositoryElasticsearch extends ElasticsearchRepository<Item, String> {
 
-public interface ItemRepositoryElasticsearch extends ElasticsearchRepository<ItemSearch, String> {
-
-    List<ItemSearch> findByName(String name);
+    Page<Item> findByName(String name, Pageable pageable);
 }

@@ -14,4 +14,6 @@ public interface GenreService {
     Mono<Void> validateGenreIds(List<Long> genreIds);
 
     Mono<Void> create(GenreRequest genreRequest);
+
+    Flux<Genre> searchGenres(String name);
 }
